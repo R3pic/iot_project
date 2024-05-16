@@ -7,10 +7,10 @@ CC = gcc
 CFLAGS = -Wall -std=c99
 
 # 소스 파일
-SRCS = main.c user_db.c password.c
+SRCS = main.c user_db.c input.c state.c
 
 # 헤더 파일
-HEADERS = user_db.h password.h
+HEADERS = user_db.h input.h state.h
 
 # 목적 파일 (오브젝트 파일)
 OBJS = $(SRCS:.c=.o)
