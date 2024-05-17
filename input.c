@@ -183,7 +183,7 @@ void button4_pressed() {
             unsigned int fndData[2];
             parseToFnd(fndData, *current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
-            char *password_db = get_password(db, *current_data);
+            char *password_db = get_password(db, user_id_str);
             if (strcmp(password_db, password_str) == 0) {
                 printf("Password check successful.\n");
                 current_State = LOGGED_IN;
