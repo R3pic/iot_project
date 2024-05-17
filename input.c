@@ -134,6 +134,7 @@ void button4_pressed() {
             *current_data = get_plain_int();
             printf("input OK: %d\n", *current_data);
             isDone = true;
+            current_State = INPUT_PASSWORD;
             break;
         case INPUT_PASSWORD:
             *current_data = get_plain_int();
@@ -142,6 +143,7 @@ void button4_pressed() {
             parseToFnd(fndData, *current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
             isDone = true;
+            current_State = LOGGED_IN;
             break;
         case LOGGED_IN:
             break;
