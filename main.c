@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <WiringPi.h>
 #include "input.h"
 #include "user_db.h"
 #include "state.h"
@@ -22,8 +23,12 @@ int main(void) {
 
     printf("Program Start\n");
     // Module initialization
-
-
+    if (wiringPiSetupGpio() == -1) {
+        printf("WiringPi setup failed.\n");
+        return 1;
+    }
+    input_init();
+    
     // Variable initialization
     unsigned int fail_count = 0;
 
@@ -70,6 +75,7 @@ int main(void) {
         }
         free(password_db);
     }
+    input_clear();
 }
 
     // Program end

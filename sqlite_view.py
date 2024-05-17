@@ -39,5 +39,7 @@ def view_users(database="users.db"):
     conn.close()
 
 if __name__ == "__main__":
-    init_users()
+    oper = input("Do you want to initialize users? (y/n): ")
+    if oper == "y":
+        init_users()
     view_users()

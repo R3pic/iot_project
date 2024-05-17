@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <wiringPi.h>
 #include "input.h"
 #include "state.h"
 
@@ -8,6 +9,29 @@ unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
 bool isDone = false;
 unsigned int *current_data;
+
+void input_init(){
+    pullUpDnControl(BTN1_PIN, PUD_UP);
+    if(wiringPiISR(BTN1_PIN, INT_EDGE_FALLING, &button1_pressed) < 0){
+        printf("ISR setup failed for BTN1\n");
+        exit(1);
+    }
+    pullUpDnControl(BTN2_PIN, PUD_UP);
+    if(wiringPiISR(BTN2_PIN, INT_EDGE_FALLING, &button2_pressed) < 0){
+        printf("ISR setup failed for BTN2\n");
+        exit(1);
+    }
+    pullUpDnControl(BTN3_PIN, PUD_UP);
+    if(wiringPiISR(BTN3_PIN, INT_EDGE_FALLING, &button3_pressed) < 0){
+        printf("ISR setup failed for BTN3\n");
+        exit(1);
+    }
+    pullUpDnControl(BTN4_PIN, PUD_UP);
+    if(wiringPiISR(BTN4_PIN, INT_EDGE_FALLING, &button4_pressed) < 0){
+        printf("ISR setup failed for BTN4\n");
+        exit(1);
+    }
+}
 
 void input_with_button(unsigned int *_current_data) {
     current_data = _current_data;
