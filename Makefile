@@ -2,7 +2,7 @@
 
 CC = gcc
 
-CFLAGS = -Wall -std=c99
+CFLAGS = -lwiringPi
 
 SRCS = main.c user_db.c input.c state.c
 
