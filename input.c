@@ -133,8 +133,14 @@ void button4_pressed() {
         case INPUT_ID:
             *current_data = get_plain_int();
             printf("input OK: %d\n", *current_data);
+            if (user_exists(db, *current_data) == false) {
+                printf("User with ID %d not exists. Try again.\n", *current_data);
+            } else {
+                printf("User with ID %d exists.\n", *current_data);
+                current_State = INPUT_PASSWORD;
+            }
+            input_clear();
             isDone = true;
-            current_State = INPUT_PASSWORD;
             break;
         case INPUT_PASSWORD:
             *current_data = get_plain_int();
@@ -142,8 +148,15 @@ void button4_pressed() {
             unsigned int fndData[2];
             parseToFnd(fndData, *current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
+            if (strcmp(get_password(db, *current_data), *current_data) == 0) {
+                printf("Password check successful.\n");
+                current_State = LOGGED_IN;
+            } else {
+                printf("Password check failed.\n");
+                fail_count++;
+                printf("Fail Count: %d\n", fail_count);
+            }
             isDone = true;
-            current_State = LOGGED_IN;
             break;
         case LOGGED_IN:
             break;
