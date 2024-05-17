@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include "input.h"
 #include "state.h"
-#include "users_db.h"
+#include "user_db.h"
 
 unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
@@ -164,7 +164,9 @@ void button4_pressed() {
         case INPUT_ID:
             *current_data = get_plain_int();
             printf("input OK: %d\n", *current_data);
-            if (user_exists(db, *current_data) == false) {
+            char user_id_str[6];
+            sprintf(user_id_str, "%d", *current_data);
+            if (user_exists(db, user_id_str) == false) {
                 printf("User with ID %d not exists. Try again.\n", *current_data);
             } else {
                 printf("User with ID %d exists.\n", *current_data);
@@ -176,10 +178,13 @@ void button4_pressed() {
         case INPUT_PASSWORD:
             *current_data = get_plain_int();
             printf("input OK: %d\n", *current_data);
+            char password_str[6];
+            sprintf(password_str, "%d", *current_data);
             unsigned int fndData[2];
             parseToFnd(fndData, *current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
-            if (strcmp(get_password(db, *current_data), *current_data) == 0) {
+            char *password_db = get_password(db, *current_data);
+            if (strcmp(password_db, password_str) == 0) {
                 printf("Password check successful.\n");
                 current_State = LOGGED_IN;
             } else {
