@@ -2,8 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <sys/time.h>
 #include "input.h"
 #include "state.h"
+#include "users_db.h"
 
 unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
@@ -152,6 +154,10 @@ void button3_pressed() {
 void button4_pressed() {
     unsigned long interruptTime = getmillis();
     if (interruptTime - lastInterruptTime > BOUNCE_TIME){
+        sqlite3 *db;
+        if (open_database("users.db", &db) != SQLITE_OK) {
+            return 1;
+        }
         switch (current_State) {
         case IDLE:
             break;
@@ -190,7 +196,9 @@ void button4_pressed() {
         }
     }
     lastInterruptTime = interruptTime;
+    close_database(db);
 }
+
 unsigned int get_plain_int() {
     unsigned int result = inputdata[5] * 100000 + inputdata[4] * 10000 + inputdata[3] * 1000 + inputdata[2] * 100 + inputdata[1] * 10 + inputdata[0];
     return result;

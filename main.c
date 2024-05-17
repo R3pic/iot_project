@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <WiringPi.h>
+#include <wiringPi.h>
 #include "input.h"
 #include "user_db.h"
 #include "state.h"
@@ -28,7 +28,7 @@ int main(void) {
         return 1;
     }
     input_init();
-    
+
     // Variable initialization
     unsigned int fail_count = 0;
 
