@@ -7,6 +7,10 @@
 #define BTN3_PIN  20
 #define BTN4_PIN  21
 
+#define BOUNCE_TIME 100
+
+unsigned long lastInterruptTime;
+
 void input_init();
 void input_with_button(unsigned int *arrayPointer);
 void button1_pressed();

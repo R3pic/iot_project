@@ -21,14 +21,14 @@ unsigned long lastInterruptTime2 = 0;
 unsigned long lastInterruptTime3 = 0;
 unsigned long lastInterruptTime4 = 0;
 
-unsigned long millis() {
+unsigned long getmillis() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
     return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 }
 
 void handleButtonPress1() {
-    unsigned long interruptTime = millis();
+    unsigned long interruptTime = getmillis();
     if (interruptTime - lastInterruptTime1 > BOUNCE_TIME) {
         if (keyState1 == HIGH) {
             printf("Button 1 Push\n");
@@ -42,7 +42,7 @@ void handleButtonPress1() {
 }
 
 void handleButtonPress2() {
-    unsigned long interruptTime = millis();
+    unsigned long interruptTime = getmillis();
     if (interruptTime - lastInterruptTime2 > BOUNCE_TIME) {
         if (keyState2 == HIGH) {
             printf("Button 2 Push\n");
@@ -56,7 +56,7 @@ void handleButtonPress2() {
 }
 
 void handleButtonPress3() {
-    unsigned long interruptTime = millis();
+    unsigned long interruptTime = getmillis();
     if (interruptTime - lastInterruptTime3 > BOUNCE_TIME) {
         if (keyState3 == HIGH) {
             printf("Button 3 Push\n");
@@ -70,7 +70,7 @@ void handleButtonPress3() {
 }
 
 void handleButtonPress4() {
-    unsigned long interruptTime = millis();
+    unsigned long interruptTime = getmillis();
     if (interruptTime - lastInterruptTime4 > BOUNCE_TIME) {
         if (keyState4 == HIGH) {
             printf("Button 4 Push\n");

@@ -9,25 +9,37 @@ unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
 bool isDone = false;
 unsigned int *current_data;
+unsigned long lastInterruptTime = 0;
+
+unsigned long getmillis(){
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+}
 
 void input_init(){
+    pinMode(BTN1_PIN, INPUT);
+    pinMode(BTN2_PIN, INPUT);
+    pinMode(BTN3_PIN, INPUT);
+    pinMode(BTN4_PIN, INPUT);
+
     pullUpDnControl(BTN1_PIN, PUD_UP);
-    if(wiringPiISR(BTN1_PIN, INT_EDGE_FALLING, &button1_pressed) < 0){
+    if(wiringPiISR(BTN1_PIN, INT_EDGE_BOTH, &button1_pressed) < 0){
         printf("ISR setup failed for BTN1\n");
         exit(1);
     }
     pullUpDnControl(BTN2_PIN, PUD_UP);
-    if(wiringPiISR(BTN2_PIN, INT_EDGE_FALLING, &button2_pressed) < 0){
+    if(wiringPiISR(BTN2_PIN, INT_EDGE_BOTH, &button2_pressed) < 0){
         printf("ISR setup failed for BTN2\n");
         exit(1);
     }
     pullUpDnControl(BTN3_PIN, PUD_UP);
-    if(wiringPiISR(BTN3_PIN, INT_EDGE_FALLING, &button3_pressed) < 0){
+    if(wiringPiISR(BTN3_PIN, INT_EDGE_BOTH, &button3_pressed) < 0){
         printf("ISR setup failed for BTN3\n");
         exit(1);
     }
     pullUpDnControl(BTN4_PIN, PUD_UP);
-    if(wiringPiISR(BTN4_PIN, INT_EDGE_FALLING, &button4_pressed) < 0){
+    if(wiringPiISR(BTN4_PIN, INT_EDGE_BOTH, &button4_pressed) < 0){
         printf("ISR setup failed for BTN4\n");
         exit(1);
     }
@@ -66,68 +78,81 @@ void input_with_button(unsigned int *_current_data) {
 }
 
 void button1_pressed() {
-    switch (current_State) {
-        case IDLE:
-            break;
-        case INPUT_ID:
-            inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
-            printf("Incremented ID number: %d\n", inputdata[currentDigit]);
-            printf("Current ID input: %d\n", get_plain_int());
-            break;
-        case INPUT_PASSWORD:
-            inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
-            printf("Incremented Password number: %d\n", inputdata[currentDigit]);
-            printf("Current Password input: %d\n", get_plain_int());
-            break;
-        case LOGGED_IN:
-            break;
-        case LOGGED_IN_WITH_ADMIN:
-            break;
+    unsigned long interruptTime = getmillis();
+    if (interruptTime - lastInterruptTime > BOUNCE_TIME) {
+        switch (current_State) {
+            case IDLE:
+                break;
+            case INPUT_ID:
+                inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
+                printf("Incremented ID number: %d\n", inputdata[currentDigit]);
+                printf("Current ID input: %d\n", get_plain_int());
+                break;
+            case INPUT_PASSWORD:
+                inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
+                printf("Incremented Password number: %d\n", inputdata[currentDigit]);
+                printf("Current Password input: %d\n", get_plain_int());
+                break;
+            case LOGGED_IN:
+                break;
+            case LOGGED_IN_WITH_ADMIN:
+                break;
+        }
+        lastInterruptTime = interruptTime;
     }
 }
 
 void button2_pressed() {
-    switch (current_State) {
-        case IDLE:
-            break;
-        case INPUT_ID:
-            currentDigit = (currentDigit + 1) % 6;
-            printf("Moved to digit %d\n", currentDigit);
-            printf("Current ID input: %d\n", get_plain_int());
-            break;
-        case INPUT_PASSWORD:
-            currentDigit = (currentDigit + 1) % 6;
-            printf("Moved to digit %d\n", currentDigit);
-            printf("Current Password input: %d\n", get_plain_int());
-            break;
-        case LOGGED_IN:
-            break;
-        case LOGGED_IN_WITH_ADMIN:
-            break;
+    unsigned long interruptTime = getmillis();
+    if (interruptTime - lastInterruptTime > BOUNCE_TIME){
+        switch (current_State) {
+            case IDLE:
+                break;
+            case INPUT_ID:
+                currentDigit = (currentDigit + 1) % 6;
+                printf("Moved to digit %d\n", currentDigit);
+                printf("Current ID input: %d\n", get_plain_int());
+                break;
+            case INPUT_PASSWORD:
+                currentDigit = (currentDigit + 1) % 6;
+                printf("Moved to digit %d\n", currentDigit);
+                printf("Current Password input: %d\n", get_plain_int());
+                break;
+            case LOGGED_IN:
+                break;
+            case LOGGED_IN_WITH_ADMIN:
+                break;
+        }
     }
 }
 
 void button3_pressed() {
-    switch (current_State) {
-        case IDLE:
-            break;
-        case INPUT_ID:
-            input_clear();
-            printf("input cleared\n");
-            break;
-        case INPUT_PASSWORD:
-            input_clear();
-            printf("input cleared\n");
-            break;
-        case LOGGED_IN:
-            break;
-        case LOGGED_IN_WITH_ADMIN:
-            break;
+    unsigned long interruptTime = getmillis();
+    if (interruptTime - lastInterruptTime > BOUNCE_TIME){
+        switch (current_State) {
+            case IDLE:
+                break;
+            case INPUT_ID:
+                input_clear();
+                printf("input cleared\n");
+                break;
+            case INPUT_PASSWORD:
+                input_clear();
+                printf("input cleared\n");
+                break;
+            case LOGGED_IN:
+                break;
+            case LOGGED_IN_WITH_ADMIN:
+                break;
+        }
+        lastInterruptTime = interruptTime;
     }
 }
 
 void button4_pressed() {
-    switch (current_State) {
+    unsigned long interruptTime = getmillis();
+    if (interruptTime - lastInterruptTime > BOUNCE_TIME){
+        switch (current_State) {
         case IDLE:
             break;
         case INPUT_ID:
@@ -162,9 +187,10 @@ void button4_pressed() {
             break;
         case LOGGED_IN_WITH_ADMIN:
             break;
+        }
     }
+    lastInterruptTime = interruptTime;
 }
-
 unsigned int get_plain_int() {
     unsigned int result = inputdata[5] * 100000 + inputdata[4] * 10000 + inputdata[3] * 1000 + inputdata[2] * 100 + inputdata[1] * 10 + inputdata[0];
     return result;
