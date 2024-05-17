@@ -194,6 +194,7 @@ void button4_pressed() {
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
             }
+            free(password_db);
             isDone = true;
             break;
         case LOGGED_IN:
