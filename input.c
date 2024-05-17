@@ -12,6 +12,7 @@ int currentDigit = 0;
 bool isDone = false;
 unsigned int *current_data;
 unsigned long lastInterruptTime = 0;
+int fail_count = 0;
 
 unsigned long getmillis(){
     struct timeval tv;
@@ -153,8 +154,9 @@ void button3_pressed() {
 
 void button4_pressed() {
     unsigned long interruptTime = getmillis();
+    sqlite3 *db;
     if (interruptTime - lastInterruptTime > BOUNCE_TIME){
-        sqlite3 *db;
+        
         if (open_database("users.db", &db) != SQLITE_OK) {
             return 1;
         }
