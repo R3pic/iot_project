@@ -10,6 +10,8 @@ int open_database(const char *filename, sqlite3 **db)
     if (rc != SQLITE_OK)
     {
         fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(*db));
+        sqlite3_close(*db);
+        *db = NULL; // Make sure to set db to NULL after closing
         return rc;
     }
     return SQLITE_OK;
@@ -129,11 +131,14 @@ int get_password(sqlite3 *db, int user_id)
 
 int close_database(sqlite3 *db)
 {
-    int rc = sqlite3_close(db);
-    if (rc != SQLITE_OK)
+    if (db != NULL)
     {
-        fprintf(stderr, "Cannot close database: %s\n", sqlite3_errmsg(db));
-        return rc;
+        int rc = sqlite3_close(db);
+        if (rc != SQLITE_OK)
+        {
+            fprintf(stderr, "Cannot close database: %s\n", sqlite3_errmsg(db));
+            return rc;
+        }
     }
     return SQLITE_OK;
 }

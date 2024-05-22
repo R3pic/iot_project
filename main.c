@@ -31,6 +31,10 @@ int main(void)
     while (1)
     {
         check_buttons();
+        if (current_State == LOGGED_IN)
+        {
+            printf("Logged in\n");
+        }
         delay(50);
     }
     return 0;

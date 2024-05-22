@@ -130,13 +130,14 @@ void button3_pressed()
 void button4_pressed()
 {
     unsigned long interruptTime = getmillis();
-    sqlite3 *db;
     if (interruptTime - lastInterruptTime > BOUNCE_TIME)
     {
+        sqlite3 *db;
         if (open_database("users.db", &db) != SQLITE_OK)
         {
             return;
         }
+
         switch (current_State)
         {
         case IDLE:
@@ -174,6 +175,7 @@ void button4_pressed()
                 printf("Password check failed.\n");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
+                current_State = INPUT_ID;
             }
             isDone = true;
             break;
@@ -181,9 +183,9 @@ void button4_pressed()
         case LOGGED_IN_WITH_ADMIN:
             break;
         }
+        close_database(db);
         lastInterruptTime = interruptTime;
     }
-    close_database(db);
 }
 
 int get_plain_int()
