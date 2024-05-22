@@ -1,4 +1,5 @@
 #include "state.h"
+#include <stdio.h>
 
 State current_State = IDLE;
 
