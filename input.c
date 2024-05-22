@@ -14,6 +14,7 @@ bool isDone = false;
 unsigned long lastInterruptTime = 0;
 int fail_count = 0;
 int id, password;
+extern int current_Data;
 
 unsigned long getmillis()
 {
@@ -143,7 +144,7 @@ void button4_pressed()
         case IDLE:
             break;
         case INPUT_ID:
-            id = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            id = get_plain_int();
             printf("Input OK: %d\n", id);
             if (!user_exists(db, id))
             {
@@ -158,7 +159,7 @@ void button4_pressed()
             isDone = true;
             break;
         case INPUT_PASSWORD:
-            password = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            password = get_plain_int();
             printf("Input OK: %d\n", password);
             unsigned int fndData[2];
             parseToFnd(fndData, password);
@@ -194,13 +195,14 @@ int get_plain_int()
     return result;
 }
 
-void parseToFnd(unsigned int *fndData, unsigned int passwordNum)
+void parseToFnd(unsigned int *fndData)
 {
-    // FndData1: 1~4 digits of passwordNum
-    fndData[0] = ((passwordNum / 1000 % 10) << 24) | ((passwordNum / 100 % 10) << 16) | ((passwordNum / 10 % 10) << 8) | (passwordNum % 10);
+    int tmp = get_plain_int();
+    // FndData1: 1~4 digits of tmp
+    fndData[0] = ((tmp / 1000 % 10) << 24) | ((tmp / 100 % 10) << 16) | ((tmp / 10 % 10) << 8) | (tmp % 10);
 
-    // FndData2: 5~6 digits of passwordNum
-    fndData[1] = ((passwordNum / 100000 % 10) << 8) | (passwordNum / 10000 % 10);
+    // FndData2: 5~6 digits of tmp
+    fndData[1] = ((tmp / 100000 % 10) << 8) | (tmp / 10000 % 10);
 }
 
 void input_clear()

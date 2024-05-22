@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -g
 
-SRCS = main.c user_db.c input.c state.c
-HEADERS = user_db.h input.h state.h
+SRCS = main.c user_db.c input.c state.c fnd.c
+HEADERS = user_db.h input.h state.h fnd.h
 OBJS = $(SRCS:.c=.o)
 TARGET = main
 
