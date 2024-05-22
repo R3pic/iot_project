@@ -37,6 +37,7 @@ int main(void)
         {
         case IDLE:
             printf("Idle\n");
+            break;
         case INPUT_ID:
         case INPUT_PASSWORD:
             check_buttons();
@@ -44,7 +45,6 @@ int main(void)
             break;
         case LOGGED_IN:
             printf("Logged in\n");
-            delay(50);
             break;
         default:
             break;
@@ -53,6 +53,7 @@ int main(void)
         {
             FndData(i, fndData);
         }
+        delay(10);
     }
     return 0;
 }
