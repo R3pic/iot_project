@@ -34,7 +34,7 @@ int main(void)
     unsigned int fail_count = 0;
     float distance = 0.0;
     unsigned int fndData[2];
-
+    int Pir_val;
     current_State = IDLE;
     // Main loop
     while (1)
@@ -42,7 +42,7 @@ int main(void)
         switch (current_State)
         {
         case IDLE:
-            int Pir_val = readPir(PIR_PIN);
+            Pir_val = readPir(PIR_PIN);
             if (Pir_val == HIGH)
             {
                 printf("main() motion detected. distance is close?");
