@@ -57,17 +57,14 @@ int main(void)
             }
             break;
         case INPUT_ID:
-            printf("Hello! input ID\n");
             check_buttons();
             parseToFnd(fndData);
             break;
         case INPUT_PASSWORD:
-            printf("input Password.\n");
             check_buttons();
             parseToFnd(fndData);
             break;
         case LOGGED_IN:
-            printf("Logged in\n");
             break;
         default:
             break;
