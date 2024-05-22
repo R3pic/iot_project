@@ -12,6 +12,7 @@
 unsigned long lastInterruptTime;
 
 void input_init();
+void check_buttons();
 void input_with_button(unsigned int *arrayPointer);
 void button1_pressed();
 void button2_pressed();
