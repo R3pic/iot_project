@@ -28,7 +28,7 @@ int main(void)
     input_init();
     initFnd();
     initUltra(TP_PIN, EP_PIN);
-    initPir();
+    initPir(PIR_PIN);
 
     // Variable initialization
     unsigned int fail_count = 0;
