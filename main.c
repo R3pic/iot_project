@@ -45,7 +45,7 @@ int main(void)
             Pir_val = readPir(PIR_PIN);
             if (Pir_val == HIGH)
             {
-                printf("main() motion detected. distance is close?");
+                printf("main() motion detected. distance is close?\n");
                 delay(1000);
                 distance = getDistance(TP_PIN, EP_PIN);
                 if (distance <= 500 && distance <= 40)
@@ -57,12 +57,12 @@ int main(void)
             }
             break;
         case INPUT_ID:
-            printf("Hello! input ID ");
+            printf("Hello! input ID\n");
             check_buttons();
             parseToFnd(fndData);
             break;
         case INPUT_PASSWORD:
-            printf("input Password.");
+            printf("input Password.\n");
             check_buttons();
             parseToFnd(fndData);
             break;
