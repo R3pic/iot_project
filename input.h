@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-
+// Button pins
 #define BTN1_PIN  12
 #define BTN2_PIN  16
 #define BTN3_PIN  20

@@ -2,8 +2,6 @@
 
 CC = gcc
 
-CFLAGS = -lwiringPi
-
 SRCS = main.c user_db.c input.c state.c
 
 HEADERS = user_db.h input.h state.h
@@ -15,10 +13,10 @@ TARGET = main
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -lsqlite3
+	$(CC) -o $(TARGET) $(OBJS) -lsqlite3 -lwiringPi
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $<
+	$(CC) -c $<
 
 clean:
 	rm -f $(OBJS) $(TARGET)

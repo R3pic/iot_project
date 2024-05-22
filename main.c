@@ -37,10 +37,10 @@ int main(void) {
     // Main loop
     while (1) {
     // user id check
-    current_State = INPUT_ID;
-    input_with_button(&user_id);
-    char user_id_str[6];
-    sprintf(user_id_str, "%d", user_id);
+        current_State = INPUT_ID;
+        input_with_button(&user_id);
+        char user_id_str[6];
+        sprintf(user_id_str, "%d", user_id);
 
     if (user_exists(db, user_id_str) == false) {
         printf("User with ID %d not exists. Try again.\n", user_id);
