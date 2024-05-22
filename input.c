@@ -11,7 +11,7 @@
 unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
 bool isDone = false;
-unsigned int *current_data;
+int *current_data;
 unsigned long lastInterruptTime = 0;
 int fail_count = 0;
 
@@ -207,8 +207,9 @@ void button4_pressed()
             unsigned int fndData[2];
             parseToFnd(fndData, *current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
-            char *password_db = get_password(db, *current_data);
-            if (password_db != NULL && strcmp(password_db, *current_data) == 0)
+            int password_db = get_password(db, *current_data);
+
+            if (password_db != NULL && password_db == *current_data)
             {
                 printf("Password check successful.\n");
                 current_State = LOGGED_IN;
@@ -219,7 +220,6 @@ void button4_pressed()
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
             }
-            free(password_db);
             isDone = true;
             break;
         case LOGGED_IN:
@@ -232,9 +232,9 @@ void button4_pressed()
     close_database(db);
 }
 
-unsigned int get_plain_int()
+int get_plain_int()
 {
-    unsigned int result = inputdata[5] * 100000 + inputdata[4] * 10000 + inputdata[3] * 1000 + inputdata[2] * 100 + inputdata[1] * 10 + inputdata[0];
+    int result = inputdata[5] * 100000 + inputdata[4] * 10000 + inputdata[3] * 1000 + inputdata[2] * 100 + inputdata[1] * 10 + inputdata[0];
     return result;
 }
 
