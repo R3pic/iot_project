@@ -39,6 +39,6 @@
 void initFnd(); // FND 관련 함수 프로토타입 선언
 void selectFnd(int Position);
 void offFnd();
-void FndData(int position, unsigned int data);
+void FndData(int position, unsigned int *data);
 
 #endif // FND_H 종료

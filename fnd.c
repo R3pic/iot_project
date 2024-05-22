@@ -83,7 +83,7 @@ void offFnd()
     }
 }
 
-void FndData(int position, unsigned int fndData[2])
+void FndData(int position, unsigned int *fndData)
 { // FND 표시 함수
     int i;
     int fndSegmentData = 0; // 변수명 변경: fndData -> fndSegmentData

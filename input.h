@@ -19,6 +19,6 @@ void button3_pressed();
 void button4_pressed();
 void input_clear();
 int get_plain_int();
-void parseToFnd(unsigned int *fndData, unsigned int password);
+void parseToFnd(unsigned int *fndData);
 
 #endif // INPUT_H
