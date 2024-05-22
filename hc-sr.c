@@ -1,4 +1,4 @@
-#include "hc-sr04.h" //센싱 관련 헤더 파일 포함
+#include "hc-sr.h" //센싱 관련 헤더 파일 포함
 
 float getDistance(int nTrigPin, int nEchoPin) // 거리 감지 함수
 {

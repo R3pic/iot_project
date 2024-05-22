@@ -48,9 +48,10 @@ int main(void)
                 printf("main() motion detected. distance is close?");
                 delay(1000);
                 distance = getDistance(TP_PIN, EP_PIN);
-                if (distance <= 500)
+                if (distance <= 500 && distance <= 40)
                 {
                     printf("Distance : %.2f(cm)\n", distance);
+                    current_State = INPUT_ID;
                 }
             }
             break;
