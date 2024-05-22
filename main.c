@@ -1,13 +1,17 @@
 // main.c
 
+// Standard headers
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wiringPi.h>
 
+// Custom headers
 #include "fnd.h"
+#include "hc-sr.h"
 #include "input.h"
+#include "pir.h"
 #include "state.h"
 #include "user_db.h"
 
@@ -23,20 +27,32 @@ int main(void)
     // Initialize pi modules
     input_init();
     initFnd();
+    initUltra(TP_PIN, EP_PIN);
+    initPir();
 
     // Variable initialization
     unsigned int fail_count = 0;
-
+    float distance = 0.0;
     unsigned int fndData[2];
 
-    current_State = INPUT_ID;
+    current_State = IDLE;
     // Main loop
     while (1)
     {
         switch (current_State)
         {
         case IDLE:
-            printf("Idle\n");
+            int Pir_val = readPir(PIR_PIN);
+            if (Pir_val == HIGH)
+            {
+                printf("main() motion detected. distance is close?");
+                delay(1000);
+                distance = getDistance(TP_PIN, EP_PIN);
+                if (distance <= 500)
+                {
+                    printf("Distance : %.2f(cm)\n", distance);
+                }
+            }
             break;
         case INPUT_ID:
         case INPUT_PASSWORD:

@@ -179,6 +179,7 @@ void button4_pressed()
                 current_State = INPUT_ID;
             }
             isDone = true;
+            input_clear();
             break;
         case LOGGED_IN:
         case LOGGED_IN_WITH_ADMIN:
