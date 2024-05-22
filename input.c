@@ -153,7 +153,8 @@ void button4_pressed()
             else
             {
                 printf("User with ID %d exists.\n", id);
-                current_State = INPUT_PASSWORD;
+                // current_State = INPUT_PASSWORD;
+                state_update(INPUT_PASSWORD);
             }
             input_clear();
             isDone = true;
@@ -169,14 +170,16 @@ void button4_pressed()
             if (password_db != -1 && password_db == password)
             {
                 printf("Password check successful.\n");
-                current_State = LOGGED_IN;
+                // current_State = LOGGED_IN;
+                state_update(LOGGED_IN);
             }
             else
             {
                 printf("Password check failed.\n");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
-                current_State = INPUT_ID;
+                // current_State = INPUT_ID;
+                state_update(INPUT_ID);
             }
             isDone = true;
             input_clear();

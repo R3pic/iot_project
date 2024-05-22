@@ -35,7 +35,7 @@ int main(void)
     float distance = 0.0;
     unsigned int fndData[2];
     int Pir_val;
-    current_State = IDLE;
+    state_update(IDLE);
     // Main loop
     while (1)
     {
@@ -51,7 +51,8 @@ int main(void)
                 if (distance <= 500 && distance <= 40)
                 {
                     printf("Distance : %.2f(cm)\n", distance);
-                    current_State = INPUT_ID;
+                    // current_State = INPUT_ID;
+                    state_update(INPUT_ID);
                 }
             }
             break;
