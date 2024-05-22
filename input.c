@@ -65,10 +65,13 @@ void button1_pressed()
         case IDLE:
             break;
         case INPUT_ID:
+            inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
+            printf("Incremented number: %d\n", inputdata[currentDigit]);
+            printf("Current ID input: %d\n", get_plain_int());
         case INPUT_PASSWORD:
             inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
             printf("Incremented number: %d\n", inputdata[currentDigit]);
-            printf("Current input: %d\n", get_plain_int());
+            printf("Current Password input: %d\n", get_plain_int());
             break;
         case LOGGED_IN:
         case LOGGED_IN_WITH_ADMIN:

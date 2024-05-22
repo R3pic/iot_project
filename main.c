@@ -26,6 +26,7 @@ int main(void)
 
     int user_id, password;
 
+    current_State = INPUT_ID;
     // Main loop
     while (1)
     {
