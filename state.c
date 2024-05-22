@@ -6,22 +6,22 @@ State current_State = IDLE;
 void state_update(State new_state)
 {
     current_State = new_state;
-    switch (current_State)
+    switch (new_state)
     {
     case IDLE:
-        printf("IDLE MODE");
+        printf("IDLE MODE\n");
         break;
     case INPUT_ID:
-        printf("Input ID MODE");
+        printf("Input ID MODE\n");
         break;
     case INPUT_PASSWORD:
-        printf("Input Password MODE");
+        printf("Input Password MODE\n");
         break;
     case LOGGED_IN:
-        printf("Succesfully Login");
+        printf("Succesfully Login\n");
         break;
     case LOGGED_IN_WITH_ADMIN:
-        printf("Login with Admin");
+        printf("Login with Admin\n");
         break;
     default:
         break;
