@@ -41,10 +41,6 @@ int main(void)
         case INPUT_PASSWORD:
             check_buttons();
             parseToFnd(fndData);
-            for (int i = 0; i < 6; i++)
-            {
-                FndData(i, fndData);
-            }
             break;
         case LOGGED_IN:
             printf("Logged in\n");
@@ -53,7 +49,10 @@ int main(void)
         default:
             break;
         }
-        delay(50);
+        for (int i = 0; i < 6; i++)
+        {
+            FndData(i, fndData);
+        }
     }
     return 0;
 }
