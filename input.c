@@ -11,9 +11,9 @@
 unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
 bool isDone = false;
-int current_data; // 포인터 대신 일반 int로 선언
 unsigned long lastInterruptTime = 0;
 int fail_count = 0;
+int id, password;
 
 unsigned long getmillis()
 {
@@ -143,29 +143,29 @@ void button4_pressed()
         case IDLE:
             break;
         case INPUT_ID:
-            current_data = get_plain_int(); // 포인터 연산 없이 직접 값 할당
-            printf("Input OK: %d\n", current_data);
-            if (!user_exists(db, current_data))
+            id = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            printf("Input OK: %d\n", id);
+            if (!user_exists(db, id))
             {
-                printf("User with ID %d not exists. Try again.\n", current_data);
+                printf("User with ID %d not exists. Try again.\n", id);
             }
             else
             {
-                printf("User with ID %d exists.\n", current_data);
+                printf("User with ID %d exists.\n", id);
                 current_State = INPUT_PASSWORD;
             }
             input_clear();
             isDone = true;
             break;
         case INPUT_PASSWORD:
-            current_data = get_plain_int(); // 포인터 연산 없이 직접 값 할당
-            printf("Input OK: %d\n", current_data);
+            password = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            printf("Input OK: %d\n", password);
             unsigned int fndData[2];
             parseToFnd(fndData, current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
-            int password_db = get_password(db, current_data);
+            int password_db = get_password(db, id);
 
-            if (password_db != -1 && password_db == current_data)
+            if (password_db != -1 && password_db == password)
             {
                 printf("Password check successful.\n");
                 current_State = LOGGED_IN;
