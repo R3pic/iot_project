@@ -81,6 +81,11 @@ bool user_exists(sqlite3 *db, int user_id)
     rc = sqlite3_step(stmt);
     bool exists = (rc == SQLITE_ROW);
 
+    if (rc != SQLITE_DONE && rc != SQLITE_ROW)
+    {
+        fprintf(stderr, "Failed to execute query: %s\n", sqlite3_errmsg(db));
+    }
+
     sqlite3_finalize(stmt);
     return exists;
 }
