@@ -32,8 +32,5 @@ int main(void)
         check_buttons();
         delay(50);
     }
-
-    // Program end
-    close_database(db);
     return 0;
 }
