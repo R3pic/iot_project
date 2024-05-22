@@ -35,17 +35,6 @@ void input_init()
     pullUpDnControl(BTN4_PIN, PUD_UP);
 }
 
-void input_with_button(int *_current_data)
-{
-    current_data = _current_data;
-    isDone = false;
-    while (!isDone)
-    {
-        check_buttons();
-        delay(50); // Add delay to reduce CPU usage
-    }
-}
-
 void check_buttons()
 {
     if (digitalRead(BTN1_PIN) == LOW)
