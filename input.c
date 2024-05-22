@@ -11,7 +11,7 @@
 unsigned int inputdata[6] = { 0 };
 int currentDigit = 0;
 bool isDone = false;
-int *current_data;
+int current_data; // 포인터 대신 일반 int로 선언
 unsigned long lastInterruptTime = 0;
 int fail_count = 0;
 
@@ -68,6 +68,7 @@ void button1_pressed()
             inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
             printf("Incremented number: %d\n", inputdata[currentDigit]);
             printf("Current ID input: %d\n", get_plain_int());
+            break;
         case INPUT_PASSWORD:
             inputdata[currentDigit] = (inputdata[currentDigit] + 1) % 10;
             printf("Incremented number: %d\n", inputdata[currentDigit]);
@@ -132,7 +133,6 @@ void button4_pressed()
     sqlite3 *db;
     if (interruptTime - lastInterruptTime > BOUNCE_TIME)
     {
-
         if (open_database("users.db", &db) != SQLITE_OK)
         {
             return;
@@ -142,29 +142,29 @@ void button4_pressed()
         case IDLE:
             break;
         case INPUT_ID:
-            *current_data = get_plain_int();
-            printf("Input OK: %d\n", *current_data);
-            if (!user_exists(db, *current_data))
+            current_data = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            printf("Input OK: %d\n", current_data);
+            if (!user_exists(db, current_data))
             {
-                printf("User with ID %d not exists. Try again.\n", *current_data);
+                printf("User with ID %d not exists. Try again.\n", current_data);
             }
             else
             {
-                printf("User with ID %d exists.\n", *current_data);
+                printf("User with ID %d exists.\n", current_data);
                 current_State = INPUT_PASSWORD;
             }
             input_clear();
             isDone = true;
             break;
         case INPUT_PASSWORD:
-            *current_data = get_plain_int();
-            printf("Input OK: %d\n", *current_data);
+            current_data = get_plain_int(); // 포인터 연산 없이 직접 값 할당
+            printf("Input OK: %d\n", current_data);
             unsigned int fndData[2];
-            parseToFnd(fndData, *current_data);
+            parseToFnd(fndData, current_data);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
-            int password_db = get_password(db, *current_data);
+            int password_db = get_password(db, current_data);
 
-            if (password_db != -1 && password_db == *current_data)
+            if (password_db != -1 && password_db == current_data)
             {
                 printf("Password check successful.\n");
                 current_State = LOGGED_IN;
