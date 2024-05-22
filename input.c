@@ -162,7 +162,7 @@ void button4_pressed()
             password = get_plain_int();
             printf("Input OK: %d\n", password);
             unsigned int fndData[2];
-            parseToFnd(fndData, password);
+            parseToFnd(fndData);
             printf("FND Data: FND1 = %08X, FND2 = %08X\n", fndData[0], fndData[1]);
             int password_db = get_password(db, id);
 
