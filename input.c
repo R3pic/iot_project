@@ -1,5 +1,6 @@
 #include "input.h"
 #include "state.h"
+#include "uart.h"
 #include "user_db.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -170,14 +171,21 @@ void button4_pressed()
             if (password_db != -1 && password_db == password)
             {
                 printf("Password check successful.\n");
+                uart_send("BUZZER 1");
+                delay(1000);
+                uart_send("MOTOR 1");
                 // current_State = LOGGED_IN;
                 state_update(LOGGED_IN);
             }
             else
             {
                 printf("Password check failed.\n");
+                uart_send("BUZZER 0");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
+                char buffer[10];
+                sprintf(buffer, "LED %d", fail_count);
+                uart_send(buffer);
                 // current_State = INPUT_ID;
                 state_update(INPUT_ID);
             }

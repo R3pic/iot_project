@@ -46,6 +46,7 @@
 
 #define ON 1
 #define OFF 0
+
 void initBuzzer(); // 센서 관련 함수 프로토타입 선언
 void playBuzzer(unsigned int unFreq, int nPlayTime);
 void stopBuzzer();
