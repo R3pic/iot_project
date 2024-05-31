@@ -6,12 +6,12 @@
 #include <wiringSerial.h>
 
 #define BAUD_RATE 9600
-#define PORT "/dev/ttyS0"
+#define DEVICE "/dev/ttyS0"
 static int serial_port;
 
-int init_uart(const char *device)
+int init_uart()
 {
-    if ((serial_port = serialOpen(device, BAUD_RATE)) < 0)
+    if ((serial_port = serialOpen(DEVICE, BAUD_RATE)) < 0)
     {
         fprintf(stderr, "Unable to open serial device: %s (error code: %d)\n", perror(errno), errno);
         return -1;
