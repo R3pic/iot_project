@@ -13,7 +13,7 @@ int init_uart()
 {
     if ((serial_port = serialOpen(DEVICE, BAUD_RATE)) < 0)
     {
-        fprintf(stdout, "Unable to open serial device: %s (error code: %d)\n", stderror(errno);
+        fprintf(stdout, "Unable to open serial device: %s (error code: %d)\n", stderr(errno);
         return -1;
     }
     return 0;
