@@ -171,16 +171,16 @@ void button4_pressed()
             if (password_db != -1 && password_db == password)
             {
                 printf("Password check successful.\n");
-                uart_send("BUZZER 1");
+                uart_send("BUZZER 1\n");
                 delay(1000);
-                uart_send("MOTOR 1");
+                uart_send("MOTOR 1\n");
                 // current_State = LOGGED_IN;
                 state_update(LOGGED_IN);
             }
             else
             {
                 printf("Password check failed.\n");
-                uart_send("BUZZER 0");
+                uart_send("BUZZER 0\n");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
                 char buffer[10];
