@@ -5,19 +5,15 @@
 #include <wiringPi.h>
 #include <wiringSerial.h>
 
+#define BAUD_RATE 9600
+#define PORT "/dev/ttyS0"
 static int serial_port;
 
-int uart_init(const char *device, int baud_rate)
+int init_uart(const char *device)
 {
-    if ((serial_port = serialOpen(device, baud_rate)) < 0)
+    if ((serial_port = serialOpen(device, BAUD_RATE)) < 0)
     {
-        fprintf(stderr, "Unable to open serial device: %s (error code: %d)\n", strerror(errno), errno);
-        return -1;
-    }
-
-    if (wiringPiSetup() == -1)
-    {
-        fprintf(stderr, "Unable to start wiringPi: %s\n", strerror(errno));
+        fprintf(stderr, "Unable to open serial device: %s (error code: %d)\n", perror(errno), errno);
         return -1;
     }
     return 0;

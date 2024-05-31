@@ -13,6 +13,7 @@
 #include "input.h"
 #include "pir.h"
 #include "state.h"
+#include "uart.h"
 #include "user_db.h"
 
 int main(void)
@@ -25,6 +26,7 @@ int main(void)
         return 1;
     }
     // Initialize pi modules
+    init_uart();
     input_init();
     initFnd();
     initUltra(TP_PIN, EP_PIN);
