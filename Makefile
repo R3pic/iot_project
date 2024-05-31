@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -g
 
-SRCS = main.c user_db.c input.c state.c fnd.c hc-sr.c pir.c
-HEADERS = user_db.h input.h state.h fnd.h hc-sr.h pir.h
+SRCS = main.c user_db.c input.c state.c fnd.c hc-sr.c pir.c uart.c
+HEADERS = user_db.h input.h state.h fnd.h hc-sr.h pir.h uart.h
 OBJS = $(SRCS:.c=.o)
 TARGET = main
 
