@@ -12,12 +12,12 @@ void state_update(State new_state)
     {
     case IDLE:
         printf("IDLE MODE\n");
+        uart_send("MOTOR 0\n");
+        delay(1000);
         uart_send("LCD 1 IDLE MODE\n");
         break;
     case INPUT_ID:
         printf("Input ID MODE\n");
-        uart_send("MOTOR 1\n");
-        delay(3000);
         uart_send("LCD 1 Input ID MODE\n");
         break;
     case INPUT_PASSWORD:
@@ -26,7 +26,7 @@ void state_update(State new_state)
         break;
     case LOGGED_IN:
         printf("Succesfully Login\n");
-        uart_send("MOTOR 0\n");
+        uart_send("MOTOR 1\n");
         delay(3000);
         uart_send("LCD 1 Login\n");
         break;
