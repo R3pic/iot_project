@@ -22,6 +22,7 @@ int init_uart()
 
 void uart_send(const char *message)
 {
+    printf("sending message: %s\n", message);
     serialPuts(serial_port, message);
 }
 
