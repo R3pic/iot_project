@@ -185,8 +185,10 @@ void button4_pressed()
                 uart_send("MOTOR 0\n");
                 delay(1000);
                 state_update(IDLE);
+                delay(1000);
                 fail_count = 0;
                 uart_send("LED 0\n");
+                delay(1000);
                 input_clear();
             }
             else
@@ -272,6 +274,6 @@ void input_clear()
     }
     currentDigit = 0;
     char buf[200];
-    sprintf(buf, "LCD 2 Current digit: %d\n", currentDigit);
+    sprintf(buf, "LCD 2 Current digit: %d\n", currentDigit + 1);
     uart_send(buf);
 }
