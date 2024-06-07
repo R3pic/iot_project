@@ -160,7 +160,6 @@ void button4_pressed()
             else
             {
                 printf("User with ID %d exists.\n", id);
-                // current_State = INPUT_PASSWORD;
                 state_update(INPUT_PASSWORD);
             }
             input_clear();
@@ -202,7 +201,7 @@ void button4_pressed()
                     delay(1000);
                     uart_send("LED 0\n");
                     fail_count = 0;
-                    log_attempt(id);
+                    // log_attempt(id);
                 }
                 char buffer[10];
                 sprintf(buffer, "LED %d", fail_count);
@@ -227,9 +226,10 @@ void log_attempt(int id)
     FILE *fp = fopen("log.txt", "a");
     if (fp == NULL)
     {
-        printf("Failed to open log file.\n");
+        perror("Failed to open log file");
         return;
     }
+
     // 현재 시간 가져오기
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
@@ -238,8 +238,12 @@ void log_attempt(int id)
     char timestamp[100];
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", t);
 
+    // 로그 메시지 만들기
+    char log_message[200];
+    sprintf(log_message, "[%s] Becareful! Someone tried to access the system with ID: %d\n", timestamp, id);
+
     // 로그 파일에 기록
-    fprintf(fp, "[%s]Becareful! Someone tried to access the system with ID: %d\n", timestamp, id);
+    fprintf(fp, "%s", log_message);
     fclose(fp);
 }
 
