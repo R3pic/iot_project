@@ -197,6 +197,7 @@ void button4_pressed()
                 char buffer[10];
                 sprintf(buffer, "LED %d", fail_count);
                 uart_send(buffer);
+                delay(1000);
                 if (fail_count >= 4)
                 {
                     uart_send("BUZZER 2\n");
