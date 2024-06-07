@@ -183,6 +183,7 @@ void button4_pressed()
                 // 로그인 성공시 10초 기다렸다가 상태 초기화하고 IDLE모드로 돌아가기.
                 delay(10000);
                 uart_send("MOTOR 0\n");
+                delay(1000);
                 state_update(IDLE);
                 fail_count = 0;
                 uart_send("LED 0\n");
