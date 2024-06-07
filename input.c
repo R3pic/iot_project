@@ -98,6 +98,7 @@ void button2_pressed()
             currentDigit = (currentDigit + 1) % 6;
             printf("Moved to digit %d\n", currentDigit);
             printf("Current input: %d\n", get_plain_int());
+            uart_send("LCD 2 Current digit: %d\n", currentDigit);
             break;
         case LOGGED_IN:
         case LOGGED_IN_WITH_ADMIN:
@@ -174,8 +175,15 @@ void button4_pressed()
                 uart_send("BUZZER 1\n");
                 delay(1000);
                 uart_send("MOTOR 1\n");
-                // current_State = LOGGED_IN;
                 state_update(LOGGED_IN);
+                // 로그인 성공시 10초 기다렸다가 상태 초기화하고 IDLE모드로 돌아가기.
+                delay(10000);
+                state_update(IDLE);
+                fail_count = 0;
+                char buffer[10];
+                sprintf(buffer, "LED %d", fail_count);
+                uart_send(buffer);
+                input_clear();
             }
             else
             {
@@ -183,6 +191,14 @@ void button4_pressed()
                 uart_send("BUZZER 0\n");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
+                if (fail_count >= 4)
+                {
+                    uart_send("BUZZER 2\n");
+                    delay(1000);
+                    uart_send("LED 0\n");
+                    fail_count = 0;
+                    log_attempt(id);
+                }
                 char buffer[10];
                 sprintf(buffer, "LED %d", fail_count);
                 uart_send(buffer);
@@ -199,6 +215,27 @@ void button4_pressed()
         close_database(db);
         lastInterruptTime = interruptTime;
     }
+}
+
+void log_attempt(int id)
+{
+    FILE *fp = fopen("log.txt", "a");
+    if (fp == NULL)
+    {
+        printf("Failed to open log file.\n");
+        return;
+    }
+    // 현재 시간 가져오기
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+
+    // 시간 및 날짜 형식 지정
+    char timestamp[100];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", t);
+
+    // 로그 파일에 기록
+    fprintf(fp, "[%s]Becareful! Someone tried to access the system with ID: %d\n", timestamp, id);
+    fclose(fp);
 }
 
 int get_plain_int()
@@ -224,4 +261,5 @@ void input_clear()
         inputdata[i] = 0;
     }
     currentDigit = 0;
+    uart_send("LCD 2 Current digit: %d\n", currentDigit);
 }

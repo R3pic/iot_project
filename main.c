@@ -53,7 +53,6 @@ int main(void)
                 if (distance <= 500 && distance <= 40)
                 {
                     printf("Distance : %.2f(cm)\n", distance);
-                    // current_State = INPUT_ID;
                     state_update(INPUT_ID);
                 }
             }
@@ -67,6 +66,7 @@ int main(void)
             parseToFnd(fndData);
             break;
         case LOGGED_IN:
+            uart_send("LCD 1\n"); // 로그인하면 lcd에 텍스트 띄우기.
             break;
         default:
             break;
