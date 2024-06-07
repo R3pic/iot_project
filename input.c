@@ -261,5 +261,7 @@ void input_clear()
         inputdata[i] = 0;
     }
     currentDigit = 0;
-    uart_send("LCD 2 Current digit: %d\n", currentDigit);
+    char buf[200];
+    fprintf(buf, "LCD 2 Current digit: %d\n", currentDigit);
+    uart_send(buf);
 }
