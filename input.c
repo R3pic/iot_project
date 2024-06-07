@@ -195,7 +195,7 @@ void button4_pressed()
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
                 char buffer[10];
-                sprintf(buffer, "LED %d", fail_count);
+                sprintf(buffer, "LED %d\n", fail_count);
                 uart_send(buffer);
                 delay(1000);
                 if (fail_count >= 4)
