@@ -19,11 +19,11 @@ void state_update(State new_state)
         break;
     case INPUT_PASSWORD:
         printf("Input Password MODE\n");
-        uart_send("LCD 1 Input Password MODE\n");
+        uart_send("LCD 1 Input PW MODE\n");
         break;
     case LOGGED_IN:
         printf("Succesfully Login\n");
-        uart_send("LCD 1 Succesfully Login\n");
+        uart_send("LCD 1 Login\n");
         break;
     case LOGGED_IN_WITH_ADMIN:
         printf("Login with Admin\n");
