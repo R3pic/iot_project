@@ -16,6 +16,8 @@ void state_update(State new_state)
     case INPUT_ID:
         printf("Input ID MODE\n");
         uart_send("LCD 1 Input ID MODE\n");
+        delay(1000);
+        uart_send("MOTOR 1\n");
         break;
     case INPUT_PASSWORD:
         printf("Input Password MODE\n");
@@ -24,6 +26,8 @@ void state_update(State new_state)
     case LOGGED_IN:
         printf("Succesfully Login\n");
         uart_send("LCD 1 Login\n");
+        delay(1000);
+        uart_send("MOTOR 0\n");
         break;
     case LOGGED_IN_WITH_ADMIN:
         printf("Login with Admin\n");

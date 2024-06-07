@@ -178,12 +178,9 @@ void button4_pressed()
                 printf("Password check successful.\n");
                 uart_send("BUZZER 1\n");
                 delay(1000);
-                uart_send("MOTOR 1\n");
                 state_update(LOGGED_IN);
                 // 로그인 성공시 10초 기다렸다가 상태 초기화하고 IDLE모드로 돌아가기.
                 delay(10000);
-                uart_send("MOTOR 0\n");
-                delay(1000);
                 state_update(IDLE);
                 delay(1000);
                 fail_count = 0;
