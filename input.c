@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
+#include <time.h>
 #include <wiringPi.h>
 
 unsigned int inputdata[6] = { 0 };
@@ -16,6 +17,8 @@ unsigned long lastInterruptTime = 0;
 int fail_count = 0;
 int id, password;
 extern int current_Data;
+
+void log_attempt(int id);
 
 unsigned long getmillis()
 {
