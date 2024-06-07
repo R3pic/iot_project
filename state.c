@@ -1,4 +1,5 @@
 #include "state.h"
+#include "uart.h"
 #include <stdio.h>
 
 State current_State = IDLE;
@@ -10,18 +11,23 @@ void state_update(State new_state)
     {
     case IDLE:
         printf("IDLE MODE\n");
+        uart_send("LCD 1 IDLE MODE\n");
         break;
     case INPUT_ID:
         printf("Input ID MODE\n");
+        uart_send("LCD 1 Input ID MODE\n");
         break;
     case INPUT_PASSWORD:
         printf("Input Password MODE\n");
+        uart_send("LCD 1 Input Password MODE\n");
         break;
     case LOGGED_IN:
         printf("Succesfully Login\n");
+        uart_send("LCD 1 Succesfully Login\n");
         break;
     case LOGGED_IN_WITH_ADMIN:
         printf("Login with Admin\n");
+        uart_send("LCD 1 Login with Admin\n");
         break;
     default:
         break;
