@@ -182,11 +182,10 @@ void button4_pressed()
                 state_update(LOGGED_IN);
                 // 로그인 성공시 10초 기다렸다가 상태 초기화하고 IDLE모드로 돌아가기.
                 delay(10000);
+                uart_send("MOTOR 0\n");
                 state_update(IDLE);
                 fail_count = 0;
-                char buffer[10];
-                sprintf(buffer, "LED %d", fail_count);
-                uart_send(buffer);
+                uart_send("LED 0\n");
                 input_clear();
             }
             else
@@ -195,6 +194,9 @@ void button4_pressed()
                 uart_send("BUZZER 0\n");
                 fail_count++;
                 printf("Fail Count: %d\n", fail_count);
+                char buffer[10];
+                sprintf(buffer, "LED %d", fail_count);
+                uart_send(buffer);
                 if (fail_count >= 4)
                 {
                     uart_send("BUZZER 2\n");
@@ -203,9 +205,6 @@ void button4_pressed()
                     fail_count = 0;
                     // log_attempt(id);
                 }
-                char buffer[10];
-                sprintf(buffer, "LED %d", fail_count);
-                uart_send(buffer);
                 // current_State = INPUT_ID;
                 state_update(INPUT_ID);
             }
