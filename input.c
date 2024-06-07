@@ -189,7 +189,6 @@ void button4_pressed()
                 fail_count = 0;
                 uart_send("LED 0\n");
                 delay(1000);
-                input_clear();
             }
             else
             {
@@ -206,10 +205,10 @@ void button4_pressed()
                     uart_send("BUZZER 2\n");
                     delay(1000);
                     uart_send("LED 0\n");
+                    delay(1000);
                     fail_count = 0;
-                    // log_attempt(id);
+                    log_attempt(id);
                 }
-                // current_State = INPUT_ID;
                 state_update(INPUT_ID);
             }
             isDone = true;
