@@ -1,6 +1,7 @@
 #include "state.h"
 #include "uart.h"
 #include <stdio.h>
+#include <wiringPi.h>
 
 State current_State = IDLE;
 
