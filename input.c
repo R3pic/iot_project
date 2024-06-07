@@ -101,7 +101,9 @@ void button2_pressed()
             currentDigit = (currentDigit + 1) % 6;
             printf("Moved to digit %d\n", currentDigit);
             printf("Current input: %d\n", get_plain_int());
-            uart_send("LCD 2 Current digit: %d\n", currentDigit);
+            char buf[100];
+            sprintf(buf, "LCD 2 Current digit: %d\n", currentDigit);
+            uart_send(buf);
             break;
         case LOGGED_IN:
         case LOGGED_IN_WITH_ADMIN:
